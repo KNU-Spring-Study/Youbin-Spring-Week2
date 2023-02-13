@@ -6,11 +6,12 @@ public class Member {
     private String username; // 회원의 로그인 ID
     private String password; // 회원의 로그인 Password
     private String name; // 회원의 이름
-
-    public Member(String username, String password, String name){
+    private String phoneNumber; // 회원의 전화번호
+    public Member(String username, String password, String name, String phoneNumber){
         this.username = username;
         this.password = password;
         this.name = name;
+        this.phoneNumber = phoneNumber;
     }
 
     public Long getId(){
@@ -27,6 +28,10 @@ public class Member {
 
     public String getName(){
         return name;
+    }
+
+    public String getPhoneNumber(){
+        return phoneNumber;
     }
 
     public void setId(Long id){ // id 지정

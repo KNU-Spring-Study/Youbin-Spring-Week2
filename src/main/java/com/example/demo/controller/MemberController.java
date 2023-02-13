@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.LoginDto;
+import com.example.demo.dto.MyPageRequestDto;
+import com.example.demo.dto.MyPageResponseDto;
 import com.example.demo.dto.SignUpDto;
 import com.example.demo.entity.Member;
 import com.example.demo.service.MemberService;
@@ -35,6 +37,15 @@ public class MemberController {
     @ResponseBody
     public String userLogin(@RequestBody LoginDto loginDto){
         return memberService.login(loginDto);
+    }
+
+    /**
+     * 회원정보 조회 (마이페이지)
+     */
+    @PostMapping("users/mypage")
+    @ResponseBody
+    public MyPageResponseDto userMyPage(@RequestBody MyPageRequestDto myPageRequestDto){
+        return memberService.mypage(myPageRequestDto);
     }
 
 }

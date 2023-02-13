@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.LoginDto;
+import com.example.demo.dto.MyPageRequestDto;
+import com.example.demo.dto.MyPageResponseDto;
 import com.example.demo.dto.SignUpDto;
 import com.example.demo.entity.Member;
 import com.example.demo.repository.MemberRepository;
@@ -20,7 +22,7 @@ public class BasicMemberService  implements MemberService{
     }
     @Override
     public String join(SignUpDto signUpDto){
-        Member member = new Member(signUpDto.getUsername(), signUpDto.getPassword(), signUpDto.getName());
+        Member member = new Member(signUpDto.getUsername(), signUpDto.getPassword(), signUpDto.getName(), signUpDto.getPhoneNumber());
         if(isNotDuplicateUsername(member.getUsername())){
             memberRepository.save(member);
             return "회원가입 성공";
@@ -38,13 +40,34 @@ public class BasicMemberService  implements MemberService{
 
     @Override
     public String login(LoginDto loginDto){
-        Member findMember = memberRepository.findByUsername(loginDto.getUsername());
-        if(findMember != null){ // username을 가진 member가 있다면
-            log.info("해당 아이디 존재");
-            if(loginDto.getPassword().equals(findMember.getPassword())){ // findmember의 password와 비교
-                return "로그인 성공";
+       if(isPasswordCorrect(loginDto.getUsername(), loginDto.getPassword())){
+           return "로그인 성공";
+       }
+       return "로그인 실패";
+    }
+
+
+@Override
+    public MyPageResponseDto mypage(MyPageRequestDto myPageRequestDto){
+        if(isPasswordCorrect(myPageRequestDto.getUsername(), myPageRequestDto.getPassword())){
+            MyPageResponseDto myPageResponseDto = new MyPageResponseDto();
+            Member findMember = memberRepository.findByUsername(myPageRequestDto.getUsername());
+            myPageResponseDto.setUsername(findMember.getUsername());
+            myPageResponseDto.setName(findMember.getName());
+            myPageResponseDto.setPhoneNumber(findMember.getPhoneNumber());
+
+            return myPageResponseDto;
+        }
+        return null;
+    }
+
+    public boolean isPasswordCorrect(String username, String password){
+        Member findMember = memberRepository.findByUsername(username);
+        if(findMember != null){
+            if(password.equals(findMember.getPassword())){
+                return true;
             }
         }
-        return "로그인 실패";
+        return false;
     }
 }

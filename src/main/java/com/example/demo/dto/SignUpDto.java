@@ -6,6 +6,7 @@ public class SignUpDto {
     private String username;
     private String password;
     private String name;
+    private String phoneNumber;
 
     public String getUsername(){
         return username;
@@ -17,5 +18,9 @@ public class SignUpDto {
 
     public String getName(){
         return  name;
+    }
+
+    public String getPhoneNumber(){
+        return phoneNumber;
     }
 }
