@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.LoginDto;
+import com.example.demo.dto.SignUpDto;
 import com.example.demo.entity.Member;
 import com.example.demo.service.MemberService;
 import org.springframework.stereotype.Controller;
@@ -21,9 +23,9 @@ public class MemberController {
      */
     @PostMapping("users/join")
     @ResponseBody
-    public String userJoin(@RequestBody Member member){
+    public String userJoin(@RequestBody SignUpDto signUpDto){
         // Controller에서 직접 Member 객체를 사용하여 데이터를 받거나 전송하는 것은 좋지 않다. 간단히 하기 위해 Member 객체 사용 -> 그럼 어케하는게 좋은지?
-        return memberService.join(member);
+        return memberService.join(signUpDto);
     }
 
     /**
@@ -31,8 +33,8 @@ public class MemberController {
      */
     @PostMapping("users/login")
     @ResponseBody
-    public String userLogin(@RequestBody String username, String password){
-        return memberService.login(username, password);
+    public String userLogin(@RequestBody LoginDto loginDto){
+        return memberService.login(loginDto);
     }
 
 }

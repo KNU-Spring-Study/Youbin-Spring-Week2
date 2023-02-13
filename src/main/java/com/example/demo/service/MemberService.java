@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.LoginDto;
+import com.example.demo.dto.SignUpDto;
 import com.example.demo.entity.Member;
 
 
@@ -9,6 +11,6 @@ import com.example.demo.entity.Member;
 
 public interface MemberService {
 
-    String join(Member member);
-    String login(String username, String password);
+    String join(SignUpDto signUpDto);
+    String login(LoginDto loginDto);
 }
