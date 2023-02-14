@@ -29,5 +29,12 @@ public class MapMemberRepository implements MemberRepository{
         return null;
     }
 
+    @Override
+    public void delete(Member member){
+        if(!store.isEmpty()){
+            store.remove(member.getId());
+        }
+    }
+
 
 }

@@ -22,7 +22,7 @@ public class BasicMemberService  implements MemberService{
     }
 
     /**
-     * 회원 가입
+     * 회원가입
      */
     @Override
     public String join(SignUpDto signUpDto){
@@ -63,6 +63,16 @@ public class BasicMemberService  implements MemberService{
                 return myPageResponseDto;
             }
             return null;
+    }
+
+    @Override
+    public String delete(String username){
+        if(!isNotDuplicateUsername(username)){ // 중복 확인을 통해 해당 username이 존재하는지 확인
+            Member findMember = memberRepository.findByUsername(username);
+            memberRepository.delete(findMember);
+            return "회원("+username+") 삭제 성공";
+        }
+        return "회원("+username+") 삭제 실패 - 존재하지 않는 회원";
     }
 
     private boolean isNotDuplicateUsername(String username){ // username 중복 확인

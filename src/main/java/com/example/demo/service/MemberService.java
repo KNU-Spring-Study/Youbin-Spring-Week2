@@ -14,4 +14,5 @@ public interface MemberService {
     String join(SignUpDto signUpDto);
     String login(LoginDto loginDto);
     MyPageResponseDto mypage(String username);
+    String delete(String username);
 }
